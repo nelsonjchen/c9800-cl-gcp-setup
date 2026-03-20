@@ -1,0 +1,16 @@
+hostname ewlc-gcp
+username <admin-user> privilege 15 password 0 <admin-password>
+aaa new-model
+aaa authentication login default local
+ip http authentication local
+ip http server
+ip http secure-server
+ip ssh version 2
+line con 0
+ login local
+line vty 0 20
+ login local
+ transport input ssh
+wireless management interface GigabitEthernet1
+end
+write memory

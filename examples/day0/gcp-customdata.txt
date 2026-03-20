@@ -1,0 +1,10 @@
+username <admin-user> privilege 15 password 0 <admin-password>
+enable password <enable-password>
+ip http authentication local
+ip http server
+ip http secure-server
+line vty 0 20
+ transport input ssh
+ login local
+service password-encryption
+wireless management interface GigabitEthernet1

@@ -1,0 +1,4 @@
+wireless tag site gcp-flex-site
+ ap-profile default-ap-profile
+ flex-profile default-flex-profile
+ no local-site

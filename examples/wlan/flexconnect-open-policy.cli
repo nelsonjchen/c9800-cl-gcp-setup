@@ -1,0 +1,5 @@
+wireless profile policy gcp-open-policy
+ vlan 1
+ no central switching
+ no central dhcp
+ no shutdown
