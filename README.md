@@ -47,7 +47,7 @@ The current Marketplace entries visible for `C9800-CL` are old:
 
 Those are roughly 2019 to 2021 era trains. This lab used `17.15.04d`.
 
-Cisco's public GCP-facing material still appears to steer users toward Marketplace, but it is not a good baseline if the goal is a current controller.
+Cisco's [public GCP-facing material](https://www.cisco.com/c/en/us/products/collateral/wireless/catalyst-9800-cl-wireless-controller-cloud/nb-06-cat9800-cl-cloud-wirel-data-sheet-ctp-en.pdf) still appears to steer users toward [Marketplace](https://www.cisco.com/c/dam/en/us/td/docs/wireless/controller/9800/9800-cloud/deployment/c9800-cl-gcp-deployment-guide.pdf), but it is not a good baseline if the goal is a current controller.
 
 ## Build The Controller
 
