@@ -256,3 +256,40 @@ That last shortcut was only partially useful. It seeded hostname and login on AU
 - [examples/image-patching/decode-custom-data-minimal.py](examples/image-patching/decode-custom-data-minimal.py)
 - [examples/wlan/flexconnect-open-policy.cli](examples/wlan/flexconnect-open-policy.cli)
 - [examples/wlan/remote-site-tag.cli](examples/wlan/remote-site-tag.cli)
+
+## MDT / TDL Telemetry
+
+The repository also includes a lab collector and the Catalyst Center-style
+TDL inventory used during the C9800 telemetry work.
+
+For a local `kvGPB` receiver that writes one JSON record per update:
+
+```bash
+uv run --with grpcio --with cisco-mdt scripts/tdl_collector.py \
+  --port 57500 --output tdl.jsonl
+```
+
+The Cloud Run demo receiver is in
+[`cloud-run/mdt_receiver`](cloud-run/mdt_receiver). It accepts Cisco MDT
+`MdtDialout` gRPC streams and logs decoded `kvGPB` updates. A C9800 should
+use a `grpc-tls` receiver pointed at the Cloud Run HTTP/2 endpoint; a normal
+HTTP POST endpoint is not compatible with MDT dial-out.
+
+The native-TDL capture helper accepts TCP or TLS and records raw session bytes
+for protocol work:
+
+```bash
+uv run scripts/native_tdl_capture.py --listen 0.0.0.0 --port 25103 \
+  --output native-tdl.jsonl
+```
+
+The inventory is [configs/catalyst_center_tdl_inventory.json](configs/catalyst_center_tdl_inventory.json).
+Use [scripts/render_tdl_config.py](scripts/render_tdl_config.py) to render
+release-validated XPath subscriptions from it. Native Catalyst Center-style
+subscriptions use `encode-tdl`, `filter tdl-uri /services;serviceName=...`,
+`stream native`, and `tls-native`; the capture helper is not itself a native
+TDL decoder.
+
+Treat the inventory as a starting point rather than a claim that every listed
+stream is available on every IOS XE release. Validate each subscription with
+`show telemetry ietf subscription <id> detail` before expanding a lab.
